@@ -1,6 +1,7 @@
 let activeMenuTimeline = gsap.timeline({ defaults: { ease: "expo.inOut" } });
 let closeMenuTimeline = gsap.timeline({ defaults: { ease: "expo.inOut" } });
 let menuToggleBtn = document.querySelector(".menu-toggle-btn");
+let bodyOverlay = document.querySelector(".body-overlay");
 let menuToggleBtnOverlay = document.querySelector(
     ".menu-toggle-btn .btn-overlay"
 );
@@ -10,57 +11,85 @@ let styledBtns = document.querySelectorAll(".styled-btn");
 let navLinks = document.querySelectorAll(".nav-link");
 let menu = document.querySelector(".main-navigation");
 
-menuToggleBtn.addEventListener("click", () => {
-    if (!menu.classList.contains("open-menu")) {
-        menu.classList.add("open-menu");
-        menuToggleBtn.classList.add("open-menu");
+function openMenu() {
+    menu.classList.add("open-menu");
+    menuToggleBtn.classList.add("open-menu");
 
-        activeMenuTimeline
-            .to(menu, { borderRadius: 0 })
-            .to(
-                menu,
-                {
-                    x: 0,
-                    duration: 1.5,
-                },
-                "-=1"
-            )
-            .to(
-                ".nav-link",
-                {
-                    x: 0,
-                    stagger: 0.1,
-                    duration: 1,
-                    ease: "power4.inOut",
-                },
-                "-=1.4"
-            );
-    } else {
-        menu.classList.remove("open-menu");
-        menuToggleBtn.classList.remove("open-menu");
+    activeMenuTimeline
+        .to(bodyOverlay, {
+            opacity: 1,
+            duration: 0.5,
+            visibility: "visible",
+        })
+        .to(menu, { borderRadius: 0 }, "-=.5")
+        .to(
+            menu,
+            {
+                x: 0,
+                duration: 1.5,
+            },
+            "-=1"
+        )
+        .to(
+            ".nav-link",
+            {
+                x: 0,
+                stagger: 0.1,
+                duration: 1,
+                ease: "power4.inOut",
+            },
+            "-=1.4"
+        );
+}
 
-        closeMenuTimeline
-            .to(menu, {
+function closeMenu() {
+    menu.classList.remove("open-menu");
+    menuToggleBtn.classList.remove("open-menu");
+
+    closeMenuTimeline
+        .to(bodyOverlay, {
+            opacity: 0,
+            duration: 0.5,
+        })
+        .set(bodyOverlay, { visibility: "hidden" })
+        .to(
+            menu,
+            {
                 x: "100%",
                 duration: 1,
-            })
-            .to(
-                menu,
-                {
-                    borderBottomLeftRadius: "50%",
-                    borderTopLeftRadius: "50%",
-                },
-                "-=.7"
-            )
-            .to(
-                ".nav-link",
-                {
-                    x: "50%",
-                    duration: 1,
-                    stagger: 0.1,
-                },
-                "-=1"
-            );
+            },
+            "-=.5"
+        )
+        .to(
+            menu,
+            {
+                borderBottomLeftRadius: "50%",
+                borderTopLeftRadius: "50%",
+            },
+            "-=.7"
+        )
+        .to(
+            ".nav-link",
+            {
+                x: "50%",
+                duration: 1,
+                stagger: 0.1,
+            },
+            "-=1"
+        );
+}
+
+menuToggleBtn.addEventListener("click", () => {
+    if (!menu.classList.contains("open-menu")) {
+        openMenu();
+    } else {
+        closeMenu();
+    }
+});
+
+window.addEventListener("click", (e) => {
+    if (e.target.classList.contains("body-overlay")) {
+        closeMenu();
     }
 });
 

@@ -1,9 +1,20 @@
 @use "base" as *;
 body {
-    background-color: rgb(203, 203, 203);
+    // background-color: rgb(203, 203, 203);
     min-height: 100vh;
     font-family: "Roboto", sans-serif;
     overflow-x: hidden;
+}
+
+.body-overlay {
+    position: fixed;
+    background-color: rgba(black, 0.8);
+    inset: 0;
+
+    z-index: 2;
+
+    visibility: hidden;
+    opacity: 0;
 }
 
 .menu-toggle-btn {
@@ -20,7 +31,7 @@ body {
 
     display: block;
 
-    z-index: 999;
+    z-index: 4;
     overflow: hidden;
 
     .btn-overlay {
@@ -84,6 +95,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     background-color: rgb(21, 21, 21);
+    z-index: 4;
 
     transform: translateX(100%);
     transform-origin: right;
