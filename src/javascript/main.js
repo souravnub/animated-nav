@@ -6,7 +6,6 @@ let menuToggleBtnOverlay = document.querySelector(
 );
 
 let styledBtns = document.querySelectorAll(".styled-btn");
-let styledBtnsOverlays = document.querySelectorAll(".styled-btn .btn-overlay");
 
 let navLinks = document.querySelectorAll(".nav-link");
 let menu = document.querySelector(".main-navigation");
@@ -65,6 +64,27 @@ menuToggleBtn.addEventListener("click", () => {
     }
 });
 
+// styled btns
+styledBtns.forEach((btn) => {
+    let btnOverlay = btn.querySelector(".btn-overlay");
+    btn.addEventListener("mouseover", () => {
+        gsap.to(btnOverlay, {
+            duration: 0.5,
+            y: 0,
+            ease: "expo.inOut",
+        });
+    });
+    btn.addEventListener("mouseout", () => {
+        gsap.timeline()
+            .to(btnOverlay, {
+                duration: 0.5,
+                y: "-100%",
+                ease: "expo.inOut",
+            })
+            .set(btnOverlay, { y: "100%" });
+    });
+});
+
 // animations for the blue color on the menu button
 
 menuToggleBtn.addEventListener("mouseover", () => {
@@ -93,7 +113,6 @@ menuToggleBtn.addEventListener("mouseout", () => {
 let activeLink = document.querySelector(".nav-link.active");
 navLinks.forEach((navLink) => {
     navLink.addEventListener("mouseover", () => {
-        console.log(activeLink.innerText);
         navLink.querySelector(".circle").style.transform = "scale(1)";
         if (!navLink.classList.contains("active")) {
             activeLink.querySelector(".circle").style.transform = "scale(0)";
