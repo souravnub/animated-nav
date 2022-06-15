@@ -1,0 +1,33 @@
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+button {
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    cursor: pointer;
+}
+p {
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+img {
+    max-width: 100%;
+}

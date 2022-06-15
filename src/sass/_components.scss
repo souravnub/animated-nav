@@ -1,0 +1,25 @@
+.styled-btn {
+    width: 4rem;
+    aspect-ratio: 1;
+
+    background-color: var(--main-color, rgb(23, 23, 23));
+
+    border-radius: 50%;
+
+    position: fixed;
+    right: 5%;
+    top: 5%;
+
+    overflow: hidden;
+
+    .btn-overlay {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+
+        border-radius: 50%;
+        background-color: var(--secondary-color, #3a51d3);
+
+        transform: translateY(100%);
+    }
+}
